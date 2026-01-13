@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مفاجأة عيد ميلاد ملك قلبي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #fff5f5;
+            overflow-x: hidden;
+            margin: 0;
+            transition: background 1s ease;
+        }
+        .romantic-font {
+            font-family: 'Amiri', serif;
+        }
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            color: #ff4d6d;
+            animation: float 6s linear infinite;
+            opacity: 0;
+            z-index: 0;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+        /* Fade-in animation for content */
+        .fade-in {
+            animation: fadeIn 1.5s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 182, 193, 0.3);
+        }
+        /* Notification Toast style */
+        #toast {
+            visibility: hidden;
+            min-width: 260px;
+            background-color: #ef4444;
+            color: #fff;
+            text-align: center;
+            border-radius: 10px;
+            padding: 12px;
+            position: fixed;
+            z-index: 100;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), visibility 0.4s;
+            box-shadow: 0 8px 20px rgba(239, 68, 68, 0.2);
+        }
+        #toast.show {
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="font-bold text-base">
+        كلمة سر يا حبيبتي تاريخ ميلادك 15/1
+    </div>
+
+    <!-- Background Hearts Container -->
+    <div id="hearts-container" class="fixed inset-0 pointer-events-none"></div>
+
+    <!-- Login Section -->
+    <div id="login-page" class="w-full max-w-md z-10 transition-all duration-700">
+        <div class="glass-card p-6 rounded-3xl shadow-2xl text-center border-t-8 border-pink-400">
+            <div class="mb-5">
+                <div class="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-3 shadow-inner">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-pink-500 animate-pulse" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800 mb-2 romantic-font">مرحباً يا أميرتي</h1>
+                <p class="text-pink-600 font-medium text-sm">اكتبي كلمه السر عشان تشوفي مفاجأتك</p>
+            </div>
+            
+            <div class="space-y-4">
+                <input type="password" id="password" placeholder="يوم ميلادك (15/1)" 
+                    class="w-full px-4 py-3 rounded-xl border-2 border-pink-200 focus:border-pink-500 focus:outline-none focus:ring-4 focus:ring-pink-100 text-center text-lg tracking-widest transition-all">
+                
+                <button onclick="checkLogin()" 
+                    class="w-full bg-gradient-to-r from-pink-500 to-red-500 hover:from-pink-600 hover:to-red-600 text-white font-bold py-3.5 rounded-xl shadow-xl transform transition active:scale-95 text-lg">
+                    دخول القلب ❤️
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Celebration Section (Initially Hidden) -->
+    <div id="birthday-page" class="hidden w-full max-w-3xl z-10 fade-in py-6">
+        <div class="glass-card p-5 md:p-10 rounded-[1.5rem] shadow-2xl text-center relative overflow-hidden">
+            
+            <!-- Glow Decorations -->
+            <div class="absolute -top-20 -left-20 w-48 h-48 bg-pink-300 rounded-full opacity-20 blur-[60px]"></div>
+            <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-red-300 rounded-full opacity-20 blur-[60px]"></div>
+
+            <header class="mb-8">
+                <h1 class="romantic-font text-4xl md:text-5xl text-pink-600 mb-4 drop-shadow-sm">عيد ميلاد سعيد يا أغلى ما أملك! 🎂</h1>
+                <div class="h-1 w-24 bg-pink-400 mx-auto rounded-full mb-4"></div>
+                <p class="text-gray-600 text-lg md:text-xl italic">كل عام وأنتِ بقلبي، كل عام وأنتِ عيدي</p>
+            </header>
+
+            <!-- Google Drive Video Player -->
+            <div class="mb-8 rounded-xl overflow-hidden shadow-2xl bg-black aspect-video flex items-center justify-center border-4 border-white/50 ring-1 ring-pink-200">
+                <video id="birthday-video" controls playsinline class="w-full h-full object-contain">
+                    <source src="https://www.dropbox.com/scl/fi/tihuzepaxsr4xp7ano84r/my_video.mp4?rlkey=2udvbjm7g0xs2rsk0muxo3890&st=sf9reno6&raw=1" type="video/mp4">
+                    عذراً، متصفحك لا يدعم تشغيل الفيديو مباشرة.
+                </video>
+            
+            </div>
+
+            <!-- Letter / Message Section -->
+            <div class="max-w-2xl mx-auto space-y-6 text-right">
+                <div class="bg-white/70 p-6 md:p-10 rounded-[2rem] text-gray-800 leading-relaxed shadow-inner border-r-4 border-pink-500 relative">
+                    <div class="romantic-font text-2xl md:text-3xl mb-6 text-pink-600 font-bold border-b border-pink-100 pb-3">
+                        كل سنة وانتي طيبة يا روح قلبي ❤️
+                    </div>
+                    
+                    <div class="space-y-4 text-base md:text-lg">
+                        <p>كل سنة وانتي أجمل نعمة في حياتي، وأغلى حاجة ربنا كرمني بيها.</p>
+                        <p>يا ملك، الـ <span class="text-pink-600 font-bold">20 سنة</span> دول بداية عمر جديد، وأنا أسعد واحد في الدنيا إني أكون جزء منه معاكي.</p>
+                        
+                        <p class="font-bold text-pink-500">إنتِ مش بس خطيبتي…</p>
+                        
+                        <p>إنتِ قلبي وراحتي وأملي، وضحكتك هي اللي بتطمني وبتخليني أقوى. من أول ما دخلتي حياتي وأنا حاسس إن الدنيا بقت أحن، وأقرب، وأجمل.</p>
+                        
+                        <div class="py-2">
+                            <span class="text-2xl md:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-red-600">أنا بحبك أوي ❤️</span>
+                        </div>
+                        
+                        <p>وده أول عيد ميلاد لينا نكون فيه مع بعض، ومش هيبقى آخر واحد أكيد، ده مجرد بداية لحاجات كتير حلوة لسه جاية بينا.</p>
+                        
+                        <p>وإن شاء الله ييجي اليوم اللي نحتفل فيه بعيد ميلادك وإحنا في بيتنا، وسط ضحكنا وحبنا وأحلامنا اللي اتحققت 💍✨</p>
+                        
+                        <div class="mt-8 pt-6 border-t border-pink-100">
+                            <p class="text-lg romantic-font">كل سنة وانتي ملكة قلبي،</p>
+                            <p class="text-xl font-bold text-pink-600">وحبيبتي، ونصيبي الحلو في الدنيا كلها 👑❤️</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Icon -->
+                    <div class="absolute -bottom-4 left-6 text-4xl opacity-20">💍</div>
+                </div>
+                
+                <div class="text-center pt-4">
+                    <button onclick="location.reload()" class="text-pink-400 hover:text-pink-600 text-xs transition underline decoration-dotted underline-offset-4">
+                        العودة للبداية
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animation for floating icons in background
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            const icons = ['❤️', '💖', '💕', '🌸', '✨', '🎂', '👑'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.fontSize = (Math.random() * 20 + 8) + 'px';
+                heart.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                
+                container.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 6000);
+            }, 400);
+        }
+
+        // Show Toast Function
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.className = "show font-bold text-base";
+            setTimeout(() => { 
+                toast.className = toast.className.replace("show", ""); 
+            }, 4000);
+        }
+
+        // Main Login Logic
+        function checkLogin() {
+            const passInput = document.getElementById('password');
+            const pass = passInput.value.trim();
+            
+            if (pass === '15/1') {
+                const loginPage = document.getElementById('login-page');
+                loginPage.style.opacity = '0';
+                loginPage.style.transform = 'scale(0.95)';
+                
+                setTimeout(() => {
+                    loginPage.classList.add('hidden');
+                    const bdayPage = document.getElementById('birthday-page');
+                    bdayPage.classList.remove('hidden');
+                    document.body.style.background = "linear-gradient(135deg, #fff5f5 0%, #fed7e2 100%)";
+                    
+                    const video = document.getElementById('birthday-video');
+                    if (video) {
+                        video.play().catch(error => {
+                            console.log("Autoplay check.");
+                        });
+                    }
+                }, 600);
+            } else {
+                showToast();
+                passInput.classList.add('border-red-500', 'animate-bounce');
+                setTimeout(() => passInput.classList.remove('animate-bounce'), 500);
+                passInput.value = '';
+            }
+        }
+
+        window.onload = createHearts;
+
+        document.getElementById('password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkLogin();
+        });
+    </script>
+</body>
+</html>
